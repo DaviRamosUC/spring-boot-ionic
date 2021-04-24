@@ -1,8 +1,8 @@
 package com.devdavi.cursomc.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,10 +21,13 @@ public class Produto implements Serializable {
 	private Integer id;
 	private String nome;
 	private Double preco;
-
+	
 	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private List<Categoria> categorias = new ArrayList<>();
+	@JoinTable(name = "PRODUTO_CATEGORIA",
+		joinColumns = @JoinColumn(name = "produto_id"),
+		inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private Set<Categoria> categorias = new HashSet<>();
 
 	public Produto() {
 	}
@@ -60,11 +63,11 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 
-	public List<Categoria> getCategorias() {
+	public Set<Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(List<Categoria> categorias) {
+	public void setCategorias(Set<Categoria> categorias) {
 		this.categorias = categorias;
 	}
 

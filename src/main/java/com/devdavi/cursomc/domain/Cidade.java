@@ -12,14 +12,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	
 	@ManyToOne
-	@JoinColumn(name = "estado_id")
+	@JoinColumn(name="estado_id")
 	private Estado estado;
 	
 	public Cidade() {
@@ -80,6 +80,7 @@ public class Cidade implements Serializable {
 			return false;
 		return true;
 	}
+	
 	
 	
 }

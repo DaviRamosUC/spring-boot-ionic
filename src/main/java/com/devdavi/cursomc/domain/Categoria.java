@@ -1,8 +1,8 @@
 package com.devdavi.cursomc.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Categoria implements Serializable{
@@ -21,9 +21,9 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
-	@JsonIgnore
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
-	private Set<Produto> produtos= new HashSet<>();
+	private List<Produto> produtos= new ArrayList<>();
 	
 	public Categoria() {
 	}
@@ -50,11 +50,11 @@ public class Categoria implements Serializable{
 		this.nome = nome;
 	}
 	
-	public Set<Produto> getProdutos() {
+	public List<Produto> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(Set<Produto> produtos) {
+	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
 

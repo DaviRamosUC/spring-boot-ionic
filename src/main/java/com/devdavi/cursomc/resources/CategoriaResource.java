@@ -24,34 +24,33 @@ import com.devdavi.cursomc.service.CategoriaService;
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
-	
+
 	@Autowired
 	private CategoriaService service;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll() {
-		List<Categoria> categorias= service.findAll();
-		List<CategoriaDTO> categoriasDTO = categorias.stream()
-				.map(obj-> new CategoriaDTO(obj)).collect(Collectors.toList());
-		
+		List<Categoria> categorias = service.findAll();
+		List<CategoriaDTO> categoriasDTO = categorias.stream().map(obj -> new CategoriaDTO(obj))
+				.collect(Collectors.toList());
+
 		return ResponseEntity.ok().body(categoriasDTO);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
 		Categoria obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
 		Categoria obj = service.fromDTO(objDto);
@@ -59,25 +58,23 @@ public class CategoriaResource {
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value = "/page",method = RequestMethod.GET)
-	public ResponseEntity<Page<CategoriaDTO>> findPage(
-			@RequestParam(value= "page", defaultValue = "0")Integer page,
-			@RequestParam(value= "linesPerPage", defaultValue = "24")Integer linesPerPage,
-			@RequestParam(value= "orderBy", defaultValue = "nome")String orderBy,
-			@RequestParam(value= "direction", defaultValue = "ASC")String direction) {
-		
-		Page<Categoria> categorias= service.findPage(page,linesPerPage,orderBy,direction);
-		Page<CategoriaDTO> categoriasDTO = categorias.map(obj-> new CategoriaDTO(obj));
-		
+
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+
+		Page<Categoria> categorias = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<CategoriaDTO> categoriasDTO = categorias.map(obj -> new CategoriaDTO(obj));
+
 		return ResponseEntity.ok().body(categoriasDTO);
 	}
-	
-	
+
 }

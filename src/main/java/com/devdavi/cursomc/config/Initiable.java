@@ -67,6 +67,11 @@ public class Initiable implements CommandLineRunner {
 
 		Categoria c1 = new Categoria(null, "Informática");
 		Categoria c2 = new Categoria(null, "Escritório");
+		Categoria c3 = new Categoria(null, "Livros");
+		Categoria c4 = new Categoria(null, "Video Games");
+		Categoria c5 = new Categoria(null, "Eletrônicos");
+		Categoria c6 = new Categoria(null, "Decoração");
+		Categoria c7 = new Categoria(null, "Jardinagem");
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -92,7 +97,7 @@ public class Initiable implements CommandLineRunner {
 		p2.getCategorias().add(c1);
 		p3.getCategorias().add(c2);
 
-		categoriaRepository.saveAll(Arrays.asList(c1, c2));
+		categoriaRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);

@@ -18,37 +18,36 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devdavi.cursomc.domain.Cliente;
 import com.devdavi.cursomc.domain.DTO.ClienteDTO;
+import com.devdavi.cursomc.domain.DTO.ClienteNewDTO;
 import com.devdavi.cursomc.service.ClienteService;
 
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
-	
+
 	@Autowired
 	private ClienteService service;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Cliente>> findAll() {
-		List<Cliente> categorias= service.findAll();
+		List<Cliente> categorias = service.findAll();
 		return ResponseEntity.ok().body(categorias);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
 		Cliente obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
 		Cliente obj = service.fromDTO(objDto);
@@ -56,24 +55,23 @@ public class ClienteResource {
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value = "/page",method = RequestMethod.GET)
-	public ResponseEntity<Page<ClienteDTO>> findPage(
-			@RequestParam(value= "page", defaultValue = "0")Integer page,
-			@RequestParam(value= "linesPerPage", defaultValue = "24")Integer linesPerPage,
-			@RequestParam(value= "orderBy", defaultValue = "nome")String orderBy,
-			@RequestParam(value= "direction", defaultValue = "ASC")String direction) {
-		
-		Page<Cliente> categorias= service.findPage(page,linesPerPage,orderBy,direction);
-		Page<ClienteDTO> categoriasDTO = categorias.map(obj-> new ClienteDTO(obj));
-		
+
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<ClienteDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+
+		Page<Cliente> categorias = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<ClienteDTO> categoriasDTO = categorias.map(obj -> new ClienteDTO(obj));
+
 		return ResponseEntity.ok().body(categoriasDTO);
 	}
-	
+
 }

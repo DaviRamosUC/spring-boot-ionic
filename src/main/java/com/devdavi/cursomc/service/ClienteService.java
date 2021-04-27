@@ -30,7 +30,7 @@ public class ClienteService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	public List<Cliente> findAll() {
 		List<Cliente> lista = repo.findAll();
 		return lista;
@@ -74,7 +74,6 @@ public class ClienteService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage,
 				org.springframework.data.domain.Sort.Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
-
 	}
 
 	public Cliente fromDTO(ClienteDTO objDto) {

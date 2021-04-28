@@ -32,7 +32,7 @@ import com.devdavi.cursomc.repositories.PedidoRepository;
 import com.devdavi.cursomc.repositories.ProdutoRepository;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class Initiable implements CommandLineRunner {
 
 	@Autowired

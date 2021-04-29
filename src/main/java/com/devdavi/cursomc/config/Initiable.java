@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -30,6 +31,8 @@ import com.devdavi.cursomc.repositories.ItemPedidoRepository;
 import com.devdavi.cursomc.repositories.PagamentoRepository;
 import com.devdavi.cursomc.repositories.PedidoRepository;
 import com.devdavi.cursomc.repositories.ProdutoRepository;
+import com.devdavi.cursomc.service.EmailService;
+import com.devdavi.cursomc.service.MockEmailService;
 
 @Configuration
 @Profile("test")
@@ -37,7 +40,7 @@ public class Initiable implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-
+	
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
@@ -61,6 +64,11 @@ public class Initiable implements CommandLineRunner {
 
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Bean
+	public EmailService emailService(){
+		return new MockEmailService();
+	}
 
 	@Override
 	public void run(String... args) throws Exception {

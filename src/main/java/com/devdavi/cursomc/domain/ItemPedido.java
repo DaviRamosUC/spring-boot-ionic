@@ -33,6 +33,10 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
+	
+	public Double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
 
 	@JsonIgnore
 	public Pedido getPedido() {
@@ -90,10 +94,6 @@ public class ItemPedido implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
-	public Double getSubtotal() {
-		return (preco - desconto) * quantidade;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -122,7 +122,7 @@ public class ItemPedido implements Serializable {
 		builder.append(", Preço unitário: ");
 		builder.append(nf.format(getPreco()));
 		builder.append(", Subtotal: ");
-		builder.append(nf.format(getSubtotal()));
+		builder.append(nf.format(getSubTotal()));
 		builder.append("\n");
 		return builder.toString();
 	}

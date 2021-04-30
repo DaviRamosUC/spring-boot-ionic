@@ -32,10 +32,10 @@ import com.devdavi.cursomc.repositories.PagamentoRepository;
 import com.devdavi.cursomc.repositories.PedidoRepository;
 import com.devdavi.cursomc.repositories.ProdutoRepository;
 import com.devdavi.cursomc.service.EmailService;
-import com.devdavi.cursomc.service.MockEmailService;
+import com.devdavi.cursomc.service.SmtpEmailService;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class Initiable implements CommandLineRunner {
 
 	@Autowired
@@ -65,9 +65,14 @@ public class Initiable implements CommandLineRunner {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+//	@Bean
+//	public EmailService emailService(){
+//		return new MockEmailService();
+//	}
+	
 	@Bean
-	public EmailService emailService(){
-		return new MockEmailService();
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 
 	@Override
@@ -129,7 +134,7 @@ public class Initiable implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@yahoo.com", "36378912377", TipoCliente.PESSOAFISICA);
 
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 

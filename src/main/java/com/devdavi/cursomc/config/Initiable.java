@@ -35,7 +35,7 @@ import com.devdavi.cursomc.service.EmailService;
 import com.devdavi.cursomc.service.SmtpEmailService;
 
 @Configuration
-@Profile("dev")
+@Profile("test")
 public class Initiable implements CommandLineRunner {
 
 	@Autowired

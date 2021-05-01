@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.devdavi.cursomc.domain.Categoria;
 import com.devdavi.cursomc.domain.Cidade;
@@ -64,6 +65,9 @@ public class Initiable implements CommandLineRunner {
 
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 //	@Bean
 //	public EmailService emailService(){
@@ -134,7 +138,7 @@ public class Initiable implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
 
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 

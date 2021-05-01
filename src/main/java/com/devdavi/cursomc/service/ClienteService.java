@@ -17,9 +17,12 @@ import com.devdavi.cursomc.domain.Cliente;
 import com.devdavi.cursomc.domain.Endereco;
 import com.devdavi.cursomc.domain.DTO.ClienteDTO;
 import com.devdavi.cursomc.domain.DTO.ClienteNewDTO;
+import com.devdavi.cursomc.domain.enums.Perfil;
 import com.devdavi.cursomc.domain.enums.TipoCliente;
 import com.devdavi.cursomc.repositories.ClienteRepository;
 import com.devdavi.cursomc.repositories.EnderecoRepository;
+import com.devdavi.cursomc.security.UserSS;
+import com.devdavi.cursomc.service.exception.AuthorizationException;
 import com.devdavi.cursomc.service.exception.DataIntegrityException;
 import com.devdavi.cursomc.service.exception.ObjectNotFoundException;
 
@@ -41,6 +44,12 @@ public class ClienteService {
 	}
 
 	public Cliente findById(Integer id) {
+		
+		UserSS user = UserService.Authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));

@@ -1,8 +1,6 @@
 package com.devdavi.cursomc.resources;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -28,15 +26,6 @@ public class CategoriaResource {
 
 	@Autowired
 	private CategoriaService service;
-
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<CategoriaDTO>> findAll() {
-		List<Categoria> categorias = service.findAll();
-		List<CategoriaDTO> categoriasDTO = categorias.stream().map(obj -> new CategoriaDTO(obj))
-				.collect(Collectors.toList());
-
-		return ResponseEntity.ok().body(categoriasDTO);
-	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {

@@ -1,7 +1,6 @@
 package com.devdavi.cursomc.resources;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -28,13 +27,6 @@ public class ClienteResource {
 
 	@Autowired
 	private ClienteService service;
-
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> findAll() {
-		List<Cliente> categorias = service.findAll();
-		return ResponseEntity.ok().body(categorias);
-	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {

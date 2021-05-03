@@ -23,12 +23,6 @@ public class ProdutoResource {
 	@Autowired
 	private ProdutoService service;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Produto>> findAll() {
-		List<Produto> produtos= service.findAll();
-		return ResponseEntity.ok().body(produtos);
-	}
-	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Produto> findById(@PathVariable Integer id) {
 		Produto obj = service.findById(id);
